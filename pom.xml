@@ -6,12 +6,12 @@
 
   <groupId>com.apicasystems</groupId>
   <artifactId>test-github-container</artifactId>
-  <version>1.0-SNAPSHOT</version>
+  <version>2.0.1</version>
   <packaging>jar</packaging>
 
   <properties>
-    <maven.compiler.source>18</maven.compiler.source>
-    <maven.compiler.target>18</maven.compiler.target>
+    <maven.compiler.source>17</maven.compiler.source>
+    <maven.compiler.target>17</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
 
@@ -28,6 +28,23 @@
               <mainClass>com.apicasystems.Main</mainClass>
             </manifest>
           </archive>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>com.google.cloud.tools</groupId>
+        <artifactId>jib-maven-plugin</artifactId>
+        <version>3.3.0</version>
+        <configuration>
+          <from>
+            <image>gcr.io/distroless/java17-debian11</image>
+          </from>
+          <to>
+            <image>ghcr.io/${env.GITHUB_USERNAME}/${project.artifactId}:${project.version}</image>
+            <tags>
+              <tag>${project.version}</tag>
+              <tag>latest</tag>
+            </tags>
+          </to>
         </configuration>
       </plugin>
     </plugins>
