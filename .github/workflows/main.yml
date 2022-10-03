@@ -29,6 +29,9 @@ jobs:
           distribution: 'temurin'
           server-id: github # Value of the distributionManagement/repository/id field of the pom.xml
           settings-path: ${{ github.workspace }} # location for the settings.xml file
+      - name: Get maven version
+        id: project-version
+        uses: jactions/maven-version@v1
       - name: Build the project
         run: |
           mvn -B package --file pom.xml
@@ -36,11 +39,10 @@ jobs:
       - name: Logging in to GICR
         run: echo ${{ github.token }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
       - name: Build Docker image
-        run: docker build . --tag ghcr.io/${{ github.actor }}/${{ github.event.repository.name }}:latest
+        run: docker build . --tag ghcr.io/${{ github.actor }}/${{ github.event.repository.name }}:latest --tag ghcr.io/${{ github.actor }}/${{ github.event.repository.name }}:${{ steps.project-version.outputs.version }}
       - name: Publish docker container
         run: |
-          docker run ghcr.io/${{ github.actor }}/${{ github.event.repository.name }}:latest
-          docker push ghcr.io/${{ github.actor }}/${{ github.event.repository.name }}:latest
+          docker push ghcr.io/${{ github.actor }}/${{ github.event.repository.name }} --all-tags
           echo Published docker container
   deploy:
     needs: build
