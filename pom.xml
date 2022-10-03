@@ -6,7 +6,7 @@
 
   <groupId>com.apicasystems</groupId>
   <artifactId>test-github-container</artifactId>
-  <version>1.0.1-SNAPSHOT</version>
+  <version>1.0.2</version>
   <packaging>jar</packaging>
 
   <properties>
@@ -37,11 +37,15 @@
           <image>
             <name>ghcr.io/${env.GITHUB_USERNAME}/${project.artifactId}</name>
             <publish>true</publish>
+            <tags>
+              <tag>latest</tag>
+              <tag>${project.version}</tag>
+            </tags>
           </image>
           <docker>
             <publishRegistry>
               <username>${env.GITHUB_USERNAME}</username>
-              <token>${env.GITHUB_TOKEN}</token>
+              <password>${env.GITHUB_TOKEN}</password>
               <url>https://ghcr.io</url>
             </publishRegistry>
           </docker>
