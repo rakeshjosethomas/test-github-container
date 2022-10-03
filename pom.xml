@@ -41,7 +41,7 @@
           <docker>
             <publishRegistry>
               <username>${env.GITHUB_USERNAME}</username>
-              <password>${env.GITHUB_TOKEN}</password>
+              <token>${env.GITHUB_TOKEN}</token>
               <url>https://ghcr.io</url>
             </publishRegistry>
           </docker>
