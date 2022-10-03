@@ -30,9 +30,7 @@ jobs:
           server-id: github # Value of the distributionManagement/repository/id field of the pom.xml
           settings-path: ${{ github.workspace }} # location for the settings.xml file
       - name: Build the project
-        run: |
-          echo ${{ github.token }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
-          mvn spring-boot:build-image
+        run: mvn spring-boot:build-image -eX
         env:
           GITHUB_USERNAME: ${{ github.actor }}
           GITHUB_TOKEN: $ {{ github.token }}
