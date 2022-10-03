@@ -6,7 +6,7 @@
 
   <groupId>com.apicasystems</groupId>
   <artifactId>test-github-container</artifactId>
-  <version>1.0.3</version>
+  <version>1.0.4</version>
   <packaging>jar</packaging>
 
   <properties>
@@ -33,14 +33,25 @@
       <plugin>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
+        <goals>
+          <goal>build-image</goal>
+        </goals>
         <configuration>
           <image>
-            <name>ghcr.io/${env.GITHUB_USERNAME}/${project.artifactId}</name>
+            <name>ghcr.io/${env.GITHUB_USERNAME}/${project.artifactId}:${project.version}</name>
             <tags>
-              <tag>latest</tag>
-              <tag>${project.version}</tag>
+              <tag>ghcr.io/${env.GITHUB_USERNAME}/${project.artifactId}:${project.version}</tag>
+              <tag>ghcr.io/${env.GITHUB_USERNAME}/${project.artifactId}:latest</tag>
             </tags>
+            <publish>true</publish>
           </image>
+          <docker>
+            <publishRegistry>
+              <username>${env.GITHUB_USERNAME}</username>
+              <password>${env.GITHUB_TOKEN}</password>
+              <url>https://ghcr.io</url>
+            </publishRegistry>
+          </docker>
         </configuration>
       </plugin>
     </plugins>
