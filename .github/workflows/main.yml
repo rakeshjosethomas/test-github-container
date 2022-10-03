@@ -31,7 +31,7 @@ jobs:
           settings-path: ${{ github.workspace }} # location for the settings.xml file
       - name: Get maven version
         id: project-version
-        uses: jactions/maven-version@v1
+        uses: jactions/maven-version@v1.1.0
       - name: Build the project
         run: |
           mvn -B package --file pom.xml
