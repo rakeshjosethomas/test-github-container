@@ -30,7 +30,7 @@ jobs:
           server-id: github # Value of the distributionManagement/repository/id field of the pom.xml
           settings-path: ${{ github.workspace }} # location for the settings.xml file
       - name: Build the project
-        run: mvn spring-boot:build-image -eX
+        run: mvn spring-boot:build-image -e -X
         env:
           GITHUB_USERNAME: ${{ github.actor }}
           GITHUB_TOKEN: $ {{ github.token }}
